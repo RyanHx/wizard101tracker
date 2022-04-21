@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+header {
+  text-align: center;
+}
+
+.plantDirectory, .profileAccordion {
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.profilePlants {
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.header-row {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
