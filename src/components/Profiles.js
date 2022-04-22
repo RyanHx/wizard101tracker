@@ -38,7 +38,7 @@ export const Profiles = ({ profiles, plants, events }) => {
                             ))}
                         </Accordion>
                     </Row>
-                    : null}
+                    : <p>No profiles added</p>}
             </Container>
             <AddProfileModal show={modalShow} setModalShow={setModalShow} handleModalSubmit={handleModalSubmit} />
         </>
