@@ -1,3 +1,5 @@
+## Access the app at https://ryanhx.github.io/wizard101tracker/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
