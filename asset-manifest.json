@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/wizard101tracker/static/css/main.56ed02b0.css",
-    "main.js": "/wizard101tracker/static/js/main.6e4f690e.js",
+    "main.js": "/wizard101tracker/static/js/main.dfb68002.js",
     "static/js/787.887fa658.chunk.js": "/wizard101tracker/static/js/787.887fa658.chunk.js",
     "index.html": "/wizard101tracker/index.html",
     "main.56ed02b0.css.map": "/wizard101tracker/static/css/main.56ed02b0.css.map",
-    "main.6e4f690e.js.map": "/wizard101tracker/static/js/main.6e4f690e.js.map",
+    "main.dfb68002.js.map": "/wizard101tracker/static/js/main.dfb68002.js.map",
     "787.887fa658.chunk.js.map": "/wizard101tracker/static/js/787.887fa658.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.56ed02b0.css",
-    "static/js/main.6e4f690e.js"
+    "static/js/main.dfb68002.js"
   ]
 }
