@@ -36,7 +36,7 @@ const AddPlant = ({onSubmit}) => {
             <Row className='mb-2'>
                 <Form.Group>
                     <Form.Label>Plant name</Form.Label>
-                    <Form.Control type='text' placeholder='Plant name' onChange={(e) => setName(e.target.value)} />
+                    <Form.Control type='text' placeholder='Plant name' required onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
             </Row>
             <Row className='mb-1'>

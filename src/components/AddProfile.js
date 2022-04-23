@@ -15,7 +15,7 @@ const AddProfile = ({onSubmit}) => {
             <Row className='mb-2'>
                 <Form.Group controlId='formPlantName'>
                     <Form.Label>Profile name</Form.Label>
-                    <Form.Control type='text' placeholder='Profile name' onChange={(e) => setName(e.target.value)} />
+                    <Form.Control type='text' placeholder='Profile name' required onChange={(e) => setName(e.target.value)} />
                 </Form.Group>
             </Row>
             <Row>
