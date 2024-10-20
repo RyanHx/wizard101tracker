@@ -35,31 +35,31 @@ export default function PlantList({ plants, setPlants, profiles, setProfiles }) 
                                             }>{profile.name}</Dropdown.Item>
                                         ))}
                                     </DropdownButton>
-                                    <Button variant="danger" onClick={() =>
-                                        setPlants(
-                                            plants.filter(p => p.id !== plant.id)
-                                        )
-                                    }>Delete</Button>
+                                    <DropdownButton as={ButtonGroup} variant="danger" title="Delete">
+                                        <Dropdown.Item as={Button} onClick={() => setPlants(plants.filter(p => p.id !== plant.id))}>
+                                            Confirm
+                                        </Dropdown.Item>
+                                    </DropdownButton>
                                 </ButtonGroup>
                             </Col>
                         </Row>
-                    </Card.Title>                    
-                        <Table striped bordered>
-                            <thead>
-                                <tr>
-                                    <th>Seed to Young</th>
-                                    <th>Young to Mature</th>
-                                    <th>Mature to Elder</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                            </tbody>
-                        </Table>                    
+                    </Card.Title>
+                    <Table striped bordered>
+                        <thead>
+                            <tr>
+                                <th>Seed to Young</th>
+                                <th>Young to Mature</th>
+                                <th>Mature to Elder</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                            </tr>
+                        </tbody>
+                    </Table>
                     <Card.Text><small className='small text-body-secondary pb-0 mb-0'>Times in HH:MM:SS format</small></Card.Text>
                 </Card.Body>
             </Card>
