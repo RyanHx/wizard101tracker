@@ -36,7 +36,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                         </Row>
                         <Row>
                             <Card.Text>
-                                <Countdown key={profilePlant.finishDate} date={DateTime.fromISO(profilePlant.finishDate).toJSDate()} renderer={renderer} />                                
+                                <Countdown key={profilePlant.finishDate} daysInHours={true} date={DateTime.fromISO(profilePlant.finishDate).toJSDate()} renderer={renderer} />                                
                             </Card.Text>
                         </Row>
                     </Col>

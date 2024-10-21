@@ -65,7 +65,7 @@ function App() {
           </Row>
           <Row><p className='text-muted'>You can define multiple profiles (accounts) here.</p></Row>
           <Row>
-            <Accordion alwaysOpen>
+            <Accordion defaultActiveKey={profiles.map(p => p.id)} alwaysOpen>
               {profiles.map(profile => (
                 <PlantsContext.Provider key={profile.id} value={plants}>
                   <ProfileAccordionItem profiles={profiles} profile={profile} setProfiles={setProfiles} />
