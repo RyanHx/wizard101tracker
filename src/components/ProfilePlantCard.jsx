@@ -8,9 +8,21 @@ import { FiX, FiPlay, FiSkipForward, FiRefreshCw } from "react-icons/fi";
 import { DateTime } from 'luxon';
 import { useContext } from 'react';
 import { PlantsContext } from './PlantsContext';
+import Countdown from 'react-countdown';
+import { zeroPad } from 'react-countdown';
 
 export default function ProfilePlantCard({ profilePlant, profiles, profile, setProfiles }) {
     const currentPlant = useContext(PlantsContext).filter(p => p.id === profilePlant.plantId)[0];
+    const stageName = ['Seed', 'Young', 'Mature']
+    const renderer = ({ formatted: { hours, minutes, seconds }, completed }) => {
+        if (completed) {
+            // Render a completed state
+            return <p className='text-success'>{profilePlant.currentStage < 2 ? 'Ready to continue' : 'Completed'}</p>;
+        } else {
+            // Render a countdown
+            return <p>Time left: {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}</p>;
+        }
+    };
     return (
         <Card>
             <Card.Body>
@@ -19,12 +31,12 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                     <Col>
                         <Row>
                             <Card.Text>
-                                Stage: {profilePlant.currentStage}
+                                Current stage: {stageName[profilePlant.currentStage]}
                             </Card.Text>
                         </Row>
                         <Row>
                             <Card.Text>
-                                {DateTime.now() > DateTime.fromISO(profilePlant.finishDate) ? 'Completed' : 'Time left: ' + DateTime.now().diff(DateTime.fromISO(profilePlant.finishDate), ['hours', 'minutes', 'seconds']).toHuman()}
+                                <Countdown key={profilePlant.finishDate} date={DateTime.fromISO(profilePlant.finishDate).toJSDate()} renderer={renderer} />                                
                             </Card.Text>
                         </Row>
                     </Col>
