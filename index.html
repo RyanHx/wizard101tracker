@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="keywords" content="Wizard101, timer, plants">
+  <meta name="author" content="RyanHx">
+  <title>Wizard101 Plant Tracker</title>
+  <meta name="description"
+    content="Create timers to track your Wizard101 plants. Supports multiple profiles (accounts)." />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script>
+    if (!localStorage.getItem('apiVersion')) {
+      localStorage.clear();
+      localStorage.setItem('apiVersion', 2);
+    }
+  </script>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>
