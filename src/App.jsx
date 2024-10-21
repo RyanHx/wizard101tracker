@@ -3,20 +3,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
-import PlantList from './components/PlantList';
-import ProfileAccordion from './components/ProfileAccordion';
-
-let initialPlants = [
-  { id: 0, name: 'Marta Colvin Andrade' },
-  { id: 1, name: 'Lamidi Olonade Fakeye' },
-  { id: 2, name: 'Louise Nevelson' },
-];
-
-let initialProfiles = [
-  { id: 0, name: 'Marta', plants: [] },
-  { id: 1, name: 'Lamidi', plants: [] },
-  { id: 2, name: 'Louise', plants: [] },
-];
+import PlantCard from './components/PlantCard';
+import ProfileAccordionItem from './components/ProfileAccordionItem';
+import Accordion from 'react-bootstrap/Accordion';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 
 function App() {
   const [profiles, setProfiles] = useState(initialProfiles);
@@ -40,7 +31,11 @@ function App() {
           </Row>
           <Row><p className='text-muted'>You can define multiple profiles (accounts) here.</p></Row>
           <Row>
-            <ProfileAccordion profiles={profiles} setProfiles={setProfiles} />
+            <Accordion alwaysOpen>
+              {profiles.map(profile => (
+                <ProfileAccordionItem key={profile.id} profiles={profiles} profile={profile} setProfiles={setProfiles} />
+              ))}
+            </Accordion>
           </Row>
         </Col>
         <Col sm={12} md={6}>
@@ -49,8 +44,10 @@ function App() {
             <Col className='text-end'><Button variant='success'>Create plant</Button></Col>
           </Row>
           <Row><p className='text-muted'>Define your plant timers here to add them to a profile.</p></Row>
-          <Row>
-            <PlantList plants={plants} setPlants={setPlants} profiles={profiles} setProfiles={setProfiles} />
+          <Row className='px-2'>
+            {plants.map(plant => (
+              <PlantCard key={plant.id} plants={plants} plant={plant} setPlants={setPlants} profiles={profiles} setProfiles={setProfiles} />
+            ))}
           </Row>
         </Col>
       </Row>
