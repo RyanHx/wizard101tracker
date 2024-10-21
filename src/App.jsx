@@ -10,6 +10,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import PlantFormTimeInput from './components/PlantFormTimeInput';
 import { Duration } from 'luxon';
+import { PlantsContext } from './components/PlantsContext';
 
 function App() {
   const [profiles, setProfiles] = useState((JSON.parse(localStorage.getItem('profiles')) || []));
@@ -63,7 +64,9 @@ function App() {
           <Row>
             <Accordion alwaysOpen>
               {profiles.map(profile => (
-                <ProfileAccordionItem key={profile.id} profiles={profiles} profile={profile} setProfiles={setProfiles} />
+                <PlantsContext.Provider key={profile.id} value={plants}>
+                  <ProfileAccordionItem profiles={profiles} profile={profile} setProfiles={setProfiles} />
+                </PlantsContext.Provider>
               ))}
             </Accordion>
           </Row>
