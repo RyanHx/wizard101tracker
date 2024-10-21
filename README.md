@@ -1,4 +1,6 @@
-# React + Vite
+# Available to use at https://ryanhx.github.io/wizard101tracker/
+
+## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
