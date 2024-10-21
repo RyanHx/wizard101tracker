@@ -7,12 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
-import { DateTime } from 'luxon';
-
-function handleLeadingZeroes(times) {
-    var timeStrings = times.map(time => (time < 10 ? '0' + time : '' + time));
-    return timeStrings.join(':');
-}
+import { DateTime, Duration } from 'luxon';
 
 export default function PlantCard({ plants, plant, setPlants, profiles, setProfiles }) {
     return (
@@ -58,6 +53,12 @@ export default function PlantCard({ plants, plant, setPlants, profiles, setProfi
                                         const filteredPlants = plants.filter(p => p.id !== plant.id);
                                         localStorage.setItem('plants', JSON.stringify(filteredPlants));
                                         setPlants(filteredPlants);
+                                        const filteredProfiles = profiles.map(p => ({
+                                            ...p,
+                                            plants: p.plants.filter(p => p.plantId !== plant.id)
+                                        }))
+                                        localStorage.setItem('profiles', JSON.stringify(filteredProfiles));
+                                        setProfiles(filteredProfiles);
                                     }}>
                                         Confirm
                                     </Dropdown.Item>
@@ -76,9 +77,9 @@ export default function PlantCard({ plants, plant, setPlants, profiles, setProfi
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{handleLeadingZeroes(plant.stageTimes[0])}</td>
-                            <td>{handleLeadingZeroes(plant.stageTimes[1])}</td>
-                            <td>{handleLeadingZeroes(plant.stageTimes[2])}</td>
+                            <td>{Duration.fromObject(plant.stageTimes[0]).toFormat('hh:mm:ss')}</td>
+                            <td>{Duration.fromObject(plant.stageTimes[1]).toFormat('hh:mm:ss')}</td>
+                            <td>{Duration.fromObject(plant.stageTimes[2]).toFormat('hh:mm:ss')}</td>
                         </tr>
                     </tbody>
                 </Table>

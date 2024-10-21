@@ -8,6 +8,8 @@ import ProfileAccordionItem from './components/ProfileAccordionItem';
 import Accordion from 'react-bootstrap/Accordion';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import PlantFormTimeInput from './components/PlantFormTimeInput';
+import { Duration } from 'luxon';
 
 function App() {
   const [profiles, setProfiles] = useState((JSON.parse(localStorage.getItem('profiles')) || []));
@@ -15,6 +17,9 @@ function App() {
   const [showAddProfileModal, setShowAddProfileModal] = useState(false);
   const handleCloseAddProfileModal = () => setShowAddProfileModal(false);
   const handleShowAddProfileModal = () => setShowAddProfileModal(true);
+  const [showAddPlantModal, setShowAddPlantModal] = useState(false);
+  const handleCloseAddPlantModal = () => setShowAddPlantModal(false);
+  const handleShowAddPlantModal = () => setShowAddPlantModal(true);
 
   return (
     <Container>
@@ -32,7 +37,7 @@ function App() {
               <Button variant='success' onClick={handleShowAddProfileModal}>Create profile</Button>
               <Modal show={showAddProfileModal} onHide={handleCloseAddProfileModal} centered>
                 <Modal.Header closeButton>
-                  <Modal.Title>Add profile</Modal.Title>
+                  <Modal.Title>Create profile</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                   <Form onSubmit={(e) => {
@@ -42,21 +47,13 @@ function App() {
                     setProfiles(newProfiles);
                     handleCloseAddProfileModal();
                   }}>
-                    <Row>
-                      <Col>
-                        <Row className='mb-2'>
-                          <Form.Group controlId='formProfileName'>
-                            <Form.Label>Profile name</Form.Label>
-                            <Form.Control type='text' placeholder='Profile name' required />
-                          </Form.Group>
-                        </Row>
-                        <Row>
-                          <Form.Group>
-                            <Button variant='primary' type='submit' className='w-100'>Add profile</Button>
-                          </Form.Group>
-                        </Row>
-                      </Col>
-                    </Row>
+                    <Form.Group controlId='formProfileName' className='mb-2'>
+                      <Form.Label>Profile name</Form.Label>
+                      <Form.Control type='text' placeholder='Profile name' required />
+                    </Form.Group>
+                    <Form.Group>
+                      <Button variant='primary' type='submit' className='w-100'>Add profile</Button>
+                    </Form.Group>
                   </Form>
                 </Modal.Body>
               </Modal>
@@ -74,7 +71,45 @@ function App() {
         <Col sm={12} md={6}>
           <Row className='align-items-center'>
             <Col><h2>Plants</h2></Col>
-            <Col className='text-end'><Button variant='success'>Create plant</Button></Col>
+            <Col className='text-end'><Button variant='success' onClick={handleShowAddPlantModal}>Create plant</Button></Col>
+            <Modal show={showAddPlantModal} onHide={handleCloseAddPlantModal} size='lg' centered>
+              <Modal.Header closeButton>
+                <Modal.Title>Create plant</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form onSubmit={(e) => {
+                  e.preventDefault();
+                  const newPlants = [
+                    ...plants,
+                    {
+                      id: crypto.randomUUID(),
+                      name: e.target.formPlantName.value,
+                      stageTimes: [
+                        Duration.fromObject({ hours: e.target.s2y_h.value || 0, minutes: e.target.s2y_m.value || 0, seconds: e.target.s2y_s.value || 0 }).toObject(),
+                        Duration.fromObject({ hours: e.target.y2m_h.value || 0, minutes: e.target.y2m_m.value || 0, seconds: e.target.y2m_s.value || 0 }).toObject(),
+                        Duration.fromObject({ hours: e.target.m2e_h.value || 0, minutes: e.target.m2e_m.value || 0, seconds: e.target.m2e_s.value || 0 }).toObject()
+                      ]
+                    }
+                  ]
+                  localStorage.setItem('plants', JSON.stringify(newPlants));
+                  setPlants(newPlants);
+                  handleCloseAddPlantModal();
+                }}>
+                  <Form.Group controlId='formPlantName' className='mb-2'>
+                    <Form.Label>Plant name</Form.Label>
+                    <Form.Control type='text' placeholder='Plant name' required />
+                  </Form.Group>
+                  <Row className='px-3 mb-2'>
+                    <PlantFormTimeInput label={'Seed to young'} controlId={'s2y'} />
+                    <PlantFormTimeInput label={'Young to mature'} controlId={'y2m'} />
+                    <PlantFormTimeInput label={'Mature to elder'} controlId={'m2e'} />
+                  </Row>
+                  <Form.Group>
+                    <Button variant='primary' type='submit' className='w-100'>Add plant</Button>
+                  </Form.Group>
+                </Form>
+              </Modal.Body>
+            </Modal>
           </Row>
           <Row><p className='text-muted'>Define your plant timers here to add them to a profile.</p></Row>
           <Row className='px-2'>
