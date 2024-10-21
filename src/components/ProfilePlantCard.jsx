@@ -14,7 +14,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
     return (
         <Card>
             <Card.Body>
-                <Card.Title>{profilePlant.plantId}</Card.Title>
+                <Card.Title>{currentPlant.name}</Card.Title>
                 <Row>
                     <Col>
                         <Row>
@@ -24,17 +24,17 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                         </Row>
                         <Row>
                             <Card.Text>
-                                {DateTime.now() > profilePlant.finishDate ? 'Completed' : 'Time left: ' + DateTime.now().diff(profilePlant.finishDate, ['hours', 'minutes', 'seconds']).toHuman()}
+                                {DateTime.now() > DateTime.fromISO(profilePlant.finishDate) ? 'Completed' : 'Time left: ' + DateTime.now().diff(DateTime.fromISO(profilePlant.finishDate), ['hours', 'minutes', 'seconds']).toHuman()}
                             </Card.Text>
                         </Row>
                     </Col>
                     <Col className='align-self-center text-lg-end text-md-start'>
                         <ButtonGroup>
                             <Button variant='success' onClick={() => {
-                                if (profilePlant.finishDate > DateTime.now()) return;
+                                if (DateTime.fromISO(profilePlant.finishDate) > DateTime.now() || profilePlant.currentStage === 2) return;
                                 const newProfiles = profiles.map(p => {
                                     if (p.id !== profile.id) return p;
-                                    const newStage = Math.min(2, profilePlant.currentStage + 1);
+                                    const newStage = profilePlant.currentStage + 1;
                                     return {
                                         ...p,
                                         plants: p.plants.map(pp => {
@@ -42,7 +42,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                                             return {
                                                 ...pp,
                                                 currentStage: newStage,
-                                                finishDate: DateTime.now().plus(currentPlant.stageTimes[newStage])
+                                                finishDate: DateTime.now().plus(currentPlant.stageTimes[newStage]).toISO()
                                             }
                                         })
                                     }
@@ -61,7 +61,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                                             return {
                                                 ...pp,
                                                 currentStage: profilePlant.currentStage + 1,
-                                                finishDate: DateTime.now().plus(currentPlant.stageTimes[profilePlant.currentStage + 1])
+                                                finishDate: DateTime.now().plus(currentPlant.stageTimes[profilePlant.currentStage + 1]).toISO()
                                             }
                                         })
                                     }
@@ -79,7 +79,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                                             return {
                                                 ...pp,
                                                 currentStage: 0,
-                                                finishDate: DateTime.now().plus(currentPlant.stageTimes[0])
+                                                finishDate: DateTime.now().plus(currentPlant.stageTimes[0]).toISO()
                                             }
                                         })
                                     }

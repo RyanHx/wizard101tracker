@@ -13,11 +13,14 @@ import { Duration } from 'luxon';
 import { PlantsContext } from './components/PlantsContext';
 
 function App() {
+  // State
   const [profiles, setProfiles] = useState((JSON.parse(localStorage.getItem('profiles')) || []));
   const [plants, setPlants] = useState((JSON.parse(localStorage.getItem('plants')) || []));
+  // Add profile modal visible state
   const [showAddProfileModal, setShowAddProfileModal] = useState(false);
   const handleCloseAddProfileModal = () => setShowAddProfileModal(false);
   const handleShowAddProfileModal = () => setShowAddProfileModal(true);
+  // Add plant modal visible state
   const [showAddPlantModal, setShowAddPlantModal] = useState(false);
   const handleCloseAddPlantModal = () => setShowAddPlantModal(false);
   const handleShowAddPlantModal = () => setShowAddPlantModal(true);

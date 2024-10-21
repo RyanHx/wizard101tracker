@@ -35,7 +35,7 @@ export default function PlantCard({ plants, plant, setPlants, profiles, setProfi
                                                                     id: crypto.randomUUID(),
                                                                     plantId: plant.id,
                                                                     currentStage: 0,
-                                                                    finishDate: DateTime.now().plus(plant.stageTimes[0])
+                                                                    finishDate: DateTime.now().plus(plant.stageTimes[0]).toISO()
                                                                 }]
                                                         }
                                                     }
