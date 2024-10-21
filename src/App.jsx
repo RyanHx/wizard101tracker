@@ -10,8 +10,11 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
 function App() {
-  const [profiles, setProfiles] = useState(initialProfiles);
-  const [plants, setPlants] = useState(initialPlants);
+  const [profiles, setProfiles] = useState((JSON.parse(localStorage.getItem('profiles')) || []));
+  const [plants, setPlants] = useState((JSON.parse(localStorage.getItem('plants')) || []));
+  const [showAddProfileModal, setShowAddProfileModal] = useState(false);
+  const handleCloseAddProfileModal = () => setShowAddProfileModal(false);
+  const handleShowAddProfileModal = () => setShowAddProfileModal(true);
 
   return (
     <Container>
@@ -26,7 +29,37 @@ function App() {
           <Row className='align-items-center'>
             <Col><h2>Profiles</h2></Col>
             <Col className='text-end'>
-              <Button variant='success'>Create profile</Button>
+              <Button variant='success' onClick={handleShowAddProfileModal}>Create profile</Button>
+              <Modal show={showAddProfileModal} onHide={handleCloseAddProfileModal} centered>
+                <Modal.Header closeButton>
+                  <Modal.Title>Add profile</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form onSubmit={(e) => {
+                    e.preventDefault();
+                    const newProfiles = [...profiles, { name: e.target.formProfileName.value, plants: [], id: crypto.randomUUID() }];
+                    localStorage.setItem('profiles', JSON.stringify(newProfiles));
+                    setProfiles(newProfiles);
+                    handleCloseAddProfileModal();
+                  }}>
+                    <Row>
+                      <Col>
+                        <Row className='mb-2'>
+                          <Form.Group controlId='formProfileName'>
+                            <Form.Label>Profile name</Form.Label>
+                            <Form.Control type='text' placeholder='Profile name' required />
+                          </Form.Group>
+                        </Row>
+                        <Row>
+                          <Form.Group>
+                            <Button variant='primary' type='submit' className='w-100'>Add profile</Button>
+                          </Form.Group>
+                        </Row>
+                      </Col>
+                    </Row>
+                  </Form>
+                </Modal.Body>
+              </Modal>
             </Col>
           </Row>
           <Row><p className='text-muted'>You can define multiple profiles (accounts) here.</p></Row>
