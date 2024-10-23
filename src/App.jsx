@@ -11,6 +11,7 @@ import Form from 'react-bootstrap/Form';
 import PlantFormTimeInput from './components/PlantFormTimeInput';
 import { Duration } from 'luxon';
 import { PlantsContext } from './components/PlantsContext';
+import ThemeToggle from './components/ThemeToggle';
 
 function App() {
   // State
@@ -28,8 +29,12 @@ function App() {
   return (
     <Container>
       <Row>
-        <header className="text-center">
-          <Row><h1>Wizard101 Plant Tracker</h1></Row>
+        <header>
+          <Row className='justify-content-between align-items-center'>
+            <Col xs={3}></Col>
+            <Col xs={6} className='text-center'><h1>Wizard101 Plant Tracker</h1></Col>
+            <Col xs={3} className='text-end'><ThemeToggle /></Col>
+          </Row>
           <Row><hr /></Row>
         </header>
       </Row>
