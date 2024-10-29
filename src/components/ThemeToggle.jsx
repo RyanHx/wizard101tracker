@@ -23,7 +23,6 @@ export default function ThemeToggle({ className = "", ...props }) {
 
     useEffect(() => {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            console.log('browser preferred theme changed');
             if (theme !== preferredTheme()) {
                 toggleTheme(false);
             }
