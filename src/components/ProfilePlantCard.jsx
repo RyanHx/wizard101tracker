@@ -40,7 +40,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                     </Col>
                     <Col className='align-self-center text-lg-end text-md-start'>
                         <ButtonGroup>
-                            <Button variant='success' onClick={() => {
+                            <Button title='Continue stage' variant='success' onClick={() => {
                                 if (DateTime.fromISO(profilePlant.finishDate) > DateTime.now() || profilePlant.currentStage === 2) return;
                                 const newProfiles = profiles.map(p => {
                                     if (p.id !== profile.id) return p;
@@ -60,7 +60,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                                 setProfiles(newProfiles);
                                 localStorage.setItem('profiles', JSON.stringify(newProfiles));
                             }}><BootStrapIcon iconId='play' style={{ fontSize: "1.25em" }} /></Button>
-                            <Button variant='secondary' onClick={() => {
+                            <Button title='Skip stage' variant='secondary' onClick={() => {
                                 if (profilePlant.currentStage === 2) return;
                                 const newProfiles = profiles.map(p => {
                                     if (p.id !== profile.id) return p;
@@ -79,7 +79,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                                 setProfiles(newProfiles);
                                 localStorage.setItem('profiles', JSON.stringify(newProfiles));
                             }}><BootStrapIcon iconId='skip-end' style={{ fontSize: "1.25em" }} /></Button>
-                            <Button variant='warning' onClick={() => {
+                            <Button title='Reset timer' variant='warning' onClick={() => {
                                 const newProfiles = profiles.map(p => {
                                     if (p.id !== profile.id) return p;
                                     return {
@@ -97,7 +97,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                                 setProfiles(newProfiles);
                                 localStorage.setItem('profiles', JSON.stringify(newProfiles));
                             }}><BootStrapIcon iconId='arrow-clockwise' style={{ fontSize: "1.1em" }} /></Button>
-                            <Button variant='danger' onClick={() => {
+                            <Button title='Delete timer' variant='danger' onClick={() => {
                                 const newProfiles = profiles.map(p => {
                                     if (p.id !== profile.id) return p;
                                     return {
