@@ -10,6 +10,15 @@
   <title>Wizard101 Plant Tracker</title>
   <meta name="description"
     content="Create timers to track your Wizard101 plants. Supports multiple profiles (accounts)." />
+  <script>
+    const theme = localStorage.getItem('theme');
+    if (theme !== null) {
+      document.documentElement.setAttribute('data-bs-theme', theme);
+    } else {
+      const isDarkThemePreferred = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-bs-theme', isDarkThemePreferred ? 'dark' : 'light');
+    }
+  </script>
 </head>
 
 <body>
@@ -19,9 +28,6 @@
       localStorage.clear();
       localStorage.setItem('apiVersion', 2);
     }
-    const isDarkThemeStored = localStorage.getItem('isDarkTheme');
-    const isDarkThemePreferred = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.documentElement.setAttribute('data-bs-theme', (isDarkThemeStored === 'true' || isDarkThemePreferred) ? 'dark' : 'light');
   </script>
   <script type="module" src="/src/main.jsx"></script>
 </body>
