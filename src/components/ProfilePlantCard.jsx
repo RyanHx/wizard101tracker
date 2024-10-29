@@ -4,12 +4,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
-import { FiX, FiPlay, FiSkipForward, FiRefreshCw } from "react-icons/fi";
 import { DateTime } from 'luxon';
 import { useContext } from 'react';
 import { PlantsContext } from './PlantsContext';
 import Countdown from 'react-countdown';
 import { zeroPad } from 'react-countdown';
+import BootStrapIcon from './BootStrapIcon';
 
 export default function ProfilePlantCard({ profilePlant, profiles, profile, setProfiles }) {
     const currentPlant = useContext(PlantsContext).filter(p => p.id === profilePlant.plantId)[0];
@@ -17,7 +17,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
     const renderer = ({ formatted: { hours, minutes, seconds }, completed }) => {
         if (completed) {
             // Render a completed state
-            return <p className='text-success'>{profilePlant.currentStage < 2 ? 'Ready to continue' : 'Completed'}</p>;
+            return <p className='text-success'>{profilePlant.currentStage < 2 ? 'Ready to continue' : 'Elder completed'}</p>;
         } else {
             // Render a countdown
             return <p>Time left: {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}</p>;
@@ -35,9 +35,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                             </Card.Text>
                         </Row>
                         <Row>
-                            <Card.Text>
-                                <Countdown key={profilePlant.finishDate} daysInHours={true} date={DateTime.fromISO(profilePlant.finishDate).toJSDate()} renderer={renderer} />                                
-                            </Card.Text>
+                            <Countdown className='card-text' key={profilePlant.finishDate} daysInHours={true} date={DateTime.fromISO(profilePlant.finishDate).toJSDate()} renderer={renderer} />
                         </Row>
                     </Col>
                     <Col className='align-self-center text-lg-end text-md-start'>
@@ -61,7 +59,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                                 });
                                 setProfiles(newProfiles);
                                 localStorage.setItem('profiles', JSON.stringify(newProfiles));
-                            }}><FiPlay /></Button>
+                            }}><BootStrapIcon iconId='play' style={{ fontSize: "1.25em" }} /></Button>
                             <Button variant='secondary' onClick={() => {
                                 if (profilePlant.currentStage === 2) return;
                                 const newProfiles = profiles.map(p => {
@@ -80,7 +78,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                                 });
                                 setProfiles(newProfiles);
                                 localStorage.setItem('profiles', JSON.stringify(newProfiles));
-                            }}><FiSkipForward /></Button>
+                            }}><BootStrapIcon iconId='skip-end' style={{ fontSize: "1.25em" }} /></Button>
                             <Button variant='warning' onClick={() => {
                                 const newProfiles = profiles.map(p => {
                                     if (p.id !== profile.id) return p;
@@ -98,7 +96,7 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                                 });
                                 setProfiles(newProfiles);
                                 localStorage.setItem('profiles', JSON.stringify(newProfiles));
-                            }}><FiRefreshCw /></Button>
+                            }}><BootStrapIcon iconId='arrow-clockwise' style={{ fontSize: "1.1em" }} /></Button>
                             <Button variant='danger' onClick={() => {
                                 const newProfiles = profiles.map(p => {
                                     if (p.id !== profile.id) return p;
@@ -109,12 +107,12 @@ export default function ProfilePlantCard({ profilePlant, profiles, profile, setP
                                 });
                                 setProfiles(newProfiles)
                                 localStorage.setItem('profiles', JSON.stringify(newProfiles));
-                            }}><FiX /></Button>
+                            }}><BootStrapIcon iconId='x-lg' style={{ fontSize: "1em" }} /></Button>
                         </ButtonGroup>
                     </Col>
                 </Row>
             </Card.Body>
-        </Card>
+        </Card >
     );
 }
 

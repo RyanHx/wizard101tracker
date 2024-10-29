@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-export default function BootStrapIcon({ iconId, className = "", children }) {
+export default function BootStrapIcon({ iconId, className = "", children, ...props }) {
     return (
-        <i className={`bi bi-${iconId} ${className}`}>{children}</i>
+        <i className={`bi bi-${iconId} ${className}`} {...props}>{children}</i>
     );
 }
 

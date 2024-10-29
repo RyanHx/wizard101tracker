@@ -12,6 +12,7 @@ import PlantFormTimeInput from './components/PlantFormTimeInput';
 import { Duration } from 'luxon';
 import { PlantsContext } from './components/PlantsContext';
 import ThemeToggle from './components/ThemeToggle';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 function App() {
   // State
@@ -58,7 +59,7 @@ function App() {
                   }}>
                     <Form.Group controlId='formProfileName' className='mb-2'>
                       <Form.Label>Profile name</Form.Label>
-                      <Form.Control type='text' placeholder='Profile name' required />
+                      <Form.Control type='text' placeholder='Profile name' autoFocus required />
                     </Form.Group>
                     <Form.Group>
                       <Button variant='primary' type='submit' className='w-100'>Add profile</Button>
@@ -108,7 +109,7 @@ function App() {
                 }}>
                   <Form.Group controlId='formPlantName' className='mb-2'>
                     <Form.Label>Plant name</Form.Label>
-                    <Form.Control type='text' placeholder='Plant name' required />
+                    <Form.Control type='text' placeholder='Plant name' autoFocus required />
                   </Form.Group>
                   <Row className='px-3 mb-2'>
                     <PlantFormTimeInput label={'Seed to young'} controlId={'s2y'} />
